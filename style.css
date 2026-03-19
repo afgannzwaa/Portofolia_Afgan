@@ -1,0 +1,103 @@
+:root { 
+    --neon: #00D3FF; 
+    --dark: #000000; 
+}
+
+body { 
+    background: var(--dark); 
+    color: #fff; 
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0; 
+    overflow-x: hidden;
+}
+
+.font-sync { font-family: 'Syncopate', sans-serif; }
+
+@keyframes text-flicker {
+    0% { opacity: 1; }
+    3% { opacity: 0.4; }
+    6% { opacity: 1; }
+    15% { opacity: 1; }
+    16% { opacity: 0.2; }
+    17% { opacity: 1; }
+    50% { opacity: 1; }
+    51% { opacity: 0.6; }
+    52% { opacity: 1; }
+    100% { opacity: 1; }
+}
+
+.flicker { animation: text-flicker 4s infinite; }
+.flicker-fast { animation: text-flicker 2s infinite; }
+.flicker-slow { animation: text-flicker 6s infinite; }
+
+#global-blur {
+    position: fixed; inset: 0; 
+    background: rgba(0,0,0,0.98);
+    z-index: 80; opacity: 0; 
+    pointer-events: none;
+    backdrop-filter: blur(25px); 
+    transition: 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#loading-box {
+    position: fixed; top: 50%; left: 50%; 
+    transform: translate(-50%, -50%);
+    z-index: 200; display: none; text-align: center; width: 100%;
+}
+
+.bar-container { 
+    width: 140px; height: 1px; 
+    background: rgba(255,255,255,0.05); 
+    margin: 15px auto; 
+}
+
+.bar-fill { 
+    width: 0%; height: 100%; 
+    background: var(--neon); 
+    box-shadow: 0 0 10px var(--neon); 
+}
+
+#profile-wrapper {
+    width: 140px; height: 140px;
+    border-radius: 50%; border: 0.5px solid rgba(135, 206, 235, 0.2);
+    overflow: hidden; cursor: pointer; z-index: 100; position: relative;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+#profile-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+.nawa-card {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 24px; padding: 2.5rem;
+    transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nawa-card:hover { 
+    border-color: var(--neon); 
+    background: rgba(135, 206, 235, 0.01);
+    transform: translateY(-8px); 
+}
+
+.nawa-card:hover p, .nawa-card:hover h3 {
+    animation: text-flicker 0.15s infinite !important;
+}
+
+.btn-interact {
+    width: 50px; height: 50px; display: flex; 
+    align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.05); 
+    border-radius: 50%; cursor: pointer; color: #444;
+    transition: 0.5s;
+}
+
+.btn-interact:hover { 
+    color: var(--neon); 
+    border-color: var(--neon); 
+    box-shadow: 0 0 20px rgba(135, 206, 235, 0.1); 
+    transform: scale(1.1);
+}
+
+.reveal { opacity: 0; transform: translateY(15px); }
+.content-dim { opacity: 0 !important; filter: blur(20px); transition: 0.7s; }
+.glow-blue { text-shadow: 0 0 15px rgba(135, 206, 235, 0.3); }

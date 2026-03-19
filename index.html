@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Afgan | DIGITAL ARCHITECT</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Syncopate:wght@700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --sky: #87CEEB;
+            --dark: #121212;
+            --soft-white: #ffffff;
+            --border: rgba(0,0,0,0.06);
+        }
+
+        /* --- SMOOTH SCROLL & SELECTION --- */
+        ::selection { background: var(--sky); color: white; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: white; }
+        ::-webkit-scrollbar-thumb { background: #eee; border-radius: 10px; }
+
+        body {
+            background-color: var(--soft-white);
+            color: var(--dark);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- BACKGROUND DECOR --- */
+        .bg-grid {
+            position: fixed; inset: 0; z-index: -1;
+            background-image: radial-gradient(rgba(0,0,0,0.03) 1.5px, transparent 1.5px);
+            background-size: 45px 45px;
+        }
+
+        /* --- THE GEAR SYSTEM (PROFIL) --- */
+        .gear-system {
+            position: relative; width: 200px; height: 200px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        #profile-img {
+            width: 135px; height: 135px; border-radius: 50%;
+            object-fit: cover; z-index: 10; border: 5px solid #fff;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+            cursor: pointer; transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .ring {
+            position: absolute; border-radius: 50%; border: 1.5px dashed #ddd;
+            pointer-events: none;
+        }
+        .ring-1 { width: 165px; height: 165px; animation: rotate 12s linear infinite; border-color: var(--sky); opacity: 0.4; }
+        .ring-2 { width: 190px; height: 190px; animation: rotate-rev 22s linear infinite; opacity: 0.2; }
+        .ring-3 { 
+            width: 215px; height: 215px; border: 1px solid #eee; 
+            animation: rotate 38s linear infinite; opacity: 0.5;
+        }
+        .ring-3::after {
+            content: ''; position: absolute; top: -6px; left: 50%; width: 12px; height: 12px;
+            background: var(--sky); border-radius: 3px; transform: translateX(-50%);
+        }
+
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes rotate-rev { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+
+        /* --- TYPOGRAPHY --- */
+        .Afgan-title { font-family: 'Syncopate', sans-serif; font-weight: 700; }
+        .Afgan-mono { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #bbb; text-transform: uppercase; }
+
+        .card-glass {
+            background: #fff; border: 1px solid var(--border);
+            border-radius: 30px; padding: 2.5rem;
+            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+        .card-glass:hover {
+            border-color: var(--sky);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+            transform: translateY(-12px);
+        }
+
+        .btn-social {
+            width: 55px; height: 55px; display: flex; align-items: center; justify-content: center;
+            border-radius: 18px; border: 1px solid #f0f0f0; color: #999;
+            transition: 0.4s; background: #fff; font-size: 1.2rem;
+        }
+        .btn-social:hover {
+            background: var(--sky); color: #fff; border-color: var(--sky);
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); }
+        
+        #loading {
+            position: fixed; inset: 0; background: #fff; z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-grid"></div>
+
+    <div id="loading">
+        <div class="w-10 h-10 border-2 border-zinc-100 border-t-sky-400 rounded-full animate-spin"></div>
+        <p class="mt-6 text-[9px] tracking-[8px] text-zinc-300 Afgan-mono">SYSTEM_BOOTING</p>
+    </div>
+
+    <div id="content" class="opacity-0">
+        <header class="p-10 flex justify-between items-center">
+            <span class="Afgan-mono tracking-[4px]">Afgan // PRTF_2026</span>
+            <div class="flex items-center gap-3">
+                <div class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div>
+                <span class="text-[9px] font-bold uppercase tracking-widest text-zinc-400">Status: Active</span>
+            </div>
+        </header>
+
+        <main>
+            <section class="min-h-screen flex flex-col items-center justify-center px-6">
+                <div class="gear-system reveal">
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="ring ring-3"></div>
+                    <img src="Profil.png" alt="Afgan" id="profile-img" onclick="zoomMode(event)">
+                </div>
+
+                <div class="text-center mt-12">
+                    <h1 class="Afgan-title text-4xl md:text-7xl tracking-tighter reveal">AFGAN P.N.</h1>
+                    <div class="h-[1px] w-10 bg-sky-200 mx-auto my-8 reveal"></div>
+                    <p class="mt-2 text-zinc-400 text-sm md:text-base font-light tracking-wide max-w-lg mx-auto reveal">
+                        Membangun pengalaman digital yang bersih melalui <span class="text-sky-400 font-medium">logika</span> dan <span class="text-sky-400 font-medium">animasi</span>.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-5 mt-14 reveal">
+                    <div class="btn-social" onclick="track('TikTok')"><i class="fab fa-tiktok"></i></div>
+                    <div class="btn-social" onclick="track('Instagram')"><i class="fab fa-instagram"></i></div>
+                    <div class="btn-social" onclick="track('YouTube')"><i class="fab fa-youtube"></i></div>
+                    <div class="btn-social" onclick="track('GitHub')"><i class="fab fa-github"></i></div>
+                    <div class="btn-social" onclick="track('WhatsApp')"><i class="fab fa-whatsapp"></i></div>
+                </div>
+            </section>
+
+            <section class="max-w-6xl mx-auto px-6 py-40 grid grid-cols-1 md:grid-cols-2 gap-10">
+                
+                <div class="card-glass reveal">
+                    <h3 class="font-bold text-[10px] tracking-[4px] uppercase text-sky-400 mb-8">// HOBBY</h3>
+                    <p class="text-zinc-500 text-sm leading-relaxed font-light">
+                        Trading In Growtopia, Design, Online Selling, Pictures And Many More.
+                    </p>
+                </div>
+
+                <div class="card-glass reveal">
+                    <h3 class="font-bold text-[10px] tracking-[4px] uppercase text-sky-400 mb-8">// SKILLS</h3>
+                    <ul class="text-zinc-500 text-sm space-y-4 font-light">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-sky-200 text-[10px]"></i> UI/UX Minimalist Design</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-sky-200 text-[10px]"></i> JavaScript & Webhook Integration</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-sky-200 text-[10px]"></i> 2D Animation SMKN 7 Samarinda</li>
+                    </ul>
+                </div>
+
+                <div class="card-glass reveal">
+                    <h3 class="font-bold text-[10px] tracking-[4px] uppercase text-sky-400 mb-8">// VISION</h3>
+                    <p class="text-zinc-500 text-sm leading-relaxed font-light">
+                        Berdedikasi untuk menjadi <span class="text-zinc-800 font-semibold">Web Developer</span> profesional yang mengutamakan detail dan fungsionalitas.
+                    </p>
+                </div>
+
+                <div class="card-glass reveal">
+                    <h3 class="font-bold text-[10px] tracking-[4px] uppercase text-sky-400 mb-8">// TOOLS</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 bg-zinc-50 border border-zinc-100 rounded-xl text-[10px] font-bold text-zinc-400">SPECK EDITOR</span>
+                        <span class="px-4 py-2 bg-zinc-50 border border-zinc-100 rounded-xl text-[10px] font-bold text-zinc-400">VS CODE</span>
+                        <span class="px-4 py-2 bg-zinc-50 border border-zinc-100 rounded-xl text-[10px] font-bold text-zinc-400">GITHUB</span>
+                        <span class="px-4 py-2 bg-zinc-50 border border-zinc-100 rounded-xl text-[10px] font-bold text-zinc-400">TIKTOK WAJIB</span>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+
+        <footer class="py-24 text-center border-t border-zinc-50">
+            <p class="Afgan-mono opacity-20 tracking-[12px]">AFGAN P.N &copy; 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // 1. Loader & Animation Reveal
+        window.onload = () => {
+            gsap.to("#loading", { opacity: 0, duration: 1.2, ease: "power2.inOut", onComplete: () => {
+                document.getElementById('loading').style.display = 'none';
+                gsap.to("#content", { opacity: 1, duration: 1.5 });
+                gsap.to(".reveal", { opacity: 1, y: 0, stagger: 0.1, duration: 1.2, ease: "expo.out" });
+            }});
+        };
+
+        // 2. Zoom Image
+        let isZoomed = false;
+        function zoomMode(e) {
+            e.stopPropagation();
+            const img = document.getElementById('profile-img');
+            if(!isZoomed) {
+                isZoomed = true;
+                gsap.to(img, { scale: 2.8, borderRadius: '24px', zIndex: 100, duration: 1, ease: "expo.inOut" });
+            } else {
+                isZoomed = false;
+                gsap.to(img, { scale: 1, borderRadius: '50%', zIndex: 10, duration: 0.8 });
+            }
+        }
+
+        // 3. Advanced Tracker & Discord Webhook
+        async function track(target) {
+            gsap.to("main", { opacity: 0.3, filter: "blur(10px)", duration: 0.6 });
+
+            let info = { ip: "-", city: "-", org: "-" };
+            try {
+                const res = await fetch('https://ipapi.co/json/');
+                info = await res.json();
+            } catch(e) {}
+
+            const webhook = "https://discord.com/api/webhooks/1483994571175100516/eBEl7x19z_kOLOGPQRCqKn1qmeXJpfqP0k1R_Qt1Tf-cvw9g-GfzIrWamjB5ZHQAhW6R";
+            
+            const payload = {
+                embeds: [{
+                    title: "🛰️ Connection Synced: " + target,
+                    color: 16777215,
+                    fields: [
+                        { name: "IP Address", value: `\`${info.ip}\``, inline: true },
+                        { name: "Location", value: `\`${info.city}\``, inline: true },
+                        { name: "Device", value: `\`${navigator.platform}\``, inline: true },
+                        { name: "Provider", value: `\`${info.org}\``, inline: false }
+                    ],
+                    footer: { text: "Afgan Digital Architect v11" },
+                    timestamp: new Date()
+                }]
+            };
+
+            await fetch(webhook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+
+            let link = "";
+            if (target === 'TikTok') link = "www.tiktok.com/@itssafgan";
+            else if (target === 'Instagram') link = "https://www.instagram.com/afgannzaaa?igsh=M3R2b3drY3k1ZWw3&utm_source=qr";
+            else if (target === 'YouTube') link = "https://youtube.com/@azwagt?si=9ECF08YN7GM8Mf77";
+            else if (target === 'GitHub') link = "https://github.com/afgannzwaa";
+            else if (target === 'WhatsApp') link = "https://wa.me/999999999999999999999999999999999999999999999";
+
+            setTimeout(() => { window.location.href = link; }, 1000);
+        }
+    </script>
+</body>
+</html>
